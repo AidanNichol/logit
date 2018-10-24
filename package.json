@@ -1,0 +1,16 @@
+{
+  "name": "logit",
+  "version": "1.0.0",
+  "description": "Console Logging Utility",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/AidanNichol/logit",
+    "type": "git"
+  },
+  "author": "AidanNichol <aidan@nicholware.co.uk>",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.1.0",
+    "lodash": "^4.17.11"
+  }
+}
