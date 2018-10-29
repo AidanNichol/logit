@@ -2,7 +2,7 @@
   "name": "logit",
   "version": "1.0.0",
   "description": "Console Logging Utility",
-  "main": "index.js",
+  "main": "logit.js",
   "repository": {
     "url": "https://github.com/AidanNichol/logit",
     "type": "git"
