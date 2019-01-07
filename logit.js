@@ -62,6 +62,7 @@ module.exports = function Logit(source) {
   logit.table = Y => debb.enabled && console.table(Y);
   return logit;
 };
+
 function getContrastYIQ(hexcolor) {
   if (typeof hexcolor !== 'string') return 'black';
   var r = parseInt(hexcolor.substr(1, 2), 16);
