@@ -5,7 +5,8 @@ const _ = require('lodash');
 var opts = {};
 var logitCodes = [];
 const debugme = debug('logit:setup');
-const debug2 = debug('steds:logit');
+// const debugme = logit = (...Y) => console.log('logit:setup', ...Y);
+  
 let enableStr = '';
 if (typeof window !== 'undefined') enableStr = window.localStorage.getItem('debug') || '';
 enableStr = (enableStr || '')
@@ -14,12 +15,12 @@ enableStr = (enableStr || '')
   // .filter(str => !str.includes('logit'))
   .filter(str => !str.includes('logit') && !str.includes('pouchdb'))
   .join(',');
-// enableStr += ',steds:logit,-logit:setup';
+enableStr += ',⨁:*,steds:*,-logit:setup';
 debug.enable(enableStr);
 // debug.enable(enableStr + ',steds:logit,-logit:setup, -pouchdb*');
-debug2('enable string', enableStr);
+console.warn('enable string', enableStr);
 // export default function Logit(source) {
-module.exports = function Logit(source) {
+module.exports = function Logit(source1) {
   const symbs = {
     components: '⚙️',
     views: '️⛰',
@@ -28,18 +29,21 @@ module.exports = function Logit(source) {
     reports: '🖨',
     mobx: '𝔐𝔛',
     containers: '📦',
+    StEdsStore: '🏬',
+    StEdsLogger: '㏒',
   };
-  if (/^(color|backg)/.test(source)) console.error('logit old style', source);
-  const parts = source.split(/[\\/]app[\\/]/);
-  if (parts.length > 1) {
-    source = parts[1];
-  }
-  source = source
+  if (/^(color|backg)/.test(source1)) console.error('logit old style', source1);
+  const parts = source1.split(/[\\/](app|node_modules)[\\/]/);
+  const goodBit = parts.pop();
+  
+  source = goodBit
     .replace(/\//g, ':')
     .replace(/-mobx|.js/g, '')
     .split(':')
+    .filter((tk,i, arr)=>i===0 ||arr[i]!==arr[i-1])
     .map(tk => symbs[tk] || tk)
     .join(':');
+  console.warn('source dir 3', source1, source);
 
   let debb = debug(`⨁:${source}`);
   logitCodes.push(`⨁:${source}`);
@@ -48,7 +52,6 @@ module.exports = function Logit(source) {
   _.set(opts, source.split(':'), true);
   debugme(
     'logit setup',
-    debb,
     source,
     logitCodes,
     opts,
