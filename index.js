@@ -32,11 +32,11 @@ module.exports = function Logit(source1) {
     StEdsLogger: '㏒',
   };
   if (/^(color|backg)/.test(source1)) console.error('logit old style', source1);
-  const parts = source1.split(/[\\/](app|node_modules)[\\/]/);
+  const parts = source1.split(/[\\\/](app|node_modules)[\\\/]/);
   const goodBit = parts.pop();
   
   source = goodBit
-    .replace(/\//g, ':')
+    .replace(/\\\//g, ':')
     .replace(/-mobx|.js/g, '')
     .split(':')
     .filter((tk,i, arr)=>i===0 ||arr[i]!==arr[i-1])
