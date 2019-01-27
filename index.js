@@ -18,7 +18,6 @@ enableStr = (enableStr || '')
 enableStr += ',⨁:*,steds:*,-logit:setup';
 debug.enable(enableStr);
 // debug.enable(enableStr + ',steds:logit,-logit:setup, -pouchdb*');
-console.warn('enable string', enableStr);
 // export default function Logit(source) {
 module.exports = function Logit(source1) {
   const symbs = {
@@ -43,7 +42,6 @@ module.exports = function Logit(source1) {
     .filter((tk,i, arr)=>i===0 ||arr[i]!==arr[i-1])
     .map(tk => symbs[tk] || tk)
     .join(':');
-  console.warn('source dir 3', source1, source);
 
   let debb = debug(`⨁:${source}`);
   logitCodes.push(`⨁:${source}`);
@@ -57,7 +55,6 @@ module.exports = function Logit(source1) {
     opts,
     typeof window !== 'undefined' ? localStorage.getItem('logitCodes') : '',
   );
-  // console.warn('debugme enabled:', debugme.enabled, `⨁:${source} enabled`, debb.enabled);
   let backgroundColor = debb.color;
   let textColor = getContrastYIQ(backgroundColor);
   let colorFormat = `color:${textColor}; background:${backgroundColor}; font-weight:bold`;
