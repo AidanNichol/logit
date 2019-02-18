@@ -6,7 +6,7 @@ var opts = {};
 var logitCodes = [];
 const debugme = debug('logit:setup');
 // const debugme = logit = (...Y) => console.log('logit:setup', ...Y);
-  
+
 let enableStr = '';
 if (typeof window !== 'undefined') enableStr = window.localStorage.getItem('debug') || '';
 enableStr = (enableStr || '')
@@ -16,7 +16,7 @@ enableStr = (enableStr || '')
   .filter(str => !str.includes('logit') && !str.includes('pouchdb'))
   .join(',');
 enableStr += ',⨁:*,steds:*,-logit:setup';
-debug.enable(enableStr);
+if (!process.env.DEBUG) debug.enable(enableStr);
 // debug.enable(enableStr + ',steds:logit,-logit:setup, -pouchdb*');
 // export default function Logit(source) {
 module.exports = function Logit(source1) {
@@ -32,14 +32,14 @@ module.exports = function Logit(source1) {
     StEdsLogger: '㏒',
   };
   if (/^(color|backg)/.test(source1)) console.error('logit old style', source1);
-  const parts = source1.split(/[\\/](app|node_modules)[\\/]/);
+  const parts = source1.split(/[\\/](app|node_modules|packages)[\\/]/);
   const goodBit = parts.pop();
-  
+
   source = goodBit
     .replace(/[\\/]/g, ':')
     .replace(/-mobx|.js/g, '')
     .split(':')
-    .filter((tk,i, arr)=>i===0 ||arr[i]!==arr[i-1])
+    .filter((tk, i, arr) => i === 0 || arr[i] !== arr[i - 1])
     .map(tk => symbs[tk] || tk)
     .join(':');
 
